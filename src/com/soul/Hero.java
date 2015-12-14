@@ -121,7 +121,7 @@ public class Hero {
         ZAGARA = new Hero("Zagara");
         ALL_HEROES.add(ZAGARA);
 
-        HeroLoader heroLoader = new HeroLoader();
+        HeroAndMapLoader heroLoader = new HeroAndMapLoader();
         ALL_HEROES.forEach(heroLoader::load);
 
         for (Hero hero : ALL_HEROES) {
@@ -139,6 +139,16 @@ public class Hero {
                 System.out.println("Strong Map: "+heroMap);
             }
             System.out.println("\n");
+        }
+
+        for (HeroMap heroMap : HeroMap.ALL_MAPS) {
+            System.out.println("HeroMap: "+heroMap);
+            for (Hero hero : heroMap.goodHeroes) {
+                System.out.println("Good hero: "+hero);
+            }
+            for (Hero hero : heroMap.badHeroes) {
+                System.out.println("Bad hero: "+hero);
+            }
         }
     }
 

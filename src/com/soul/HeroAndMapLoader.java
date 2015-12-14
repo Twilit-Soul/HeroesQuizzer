@@ -15,7 +15,7 @@ import java.util.Set;
  * Uses JSoup to check Icy Veins for latest info.
  * Created by Mitchell on 12/14/2015.
  */
-class HeroLoader {
+class HeroAndMapLoader {
     private static final HashMap<Hero, Optional<Document>> heroPages = new HashMap<>();
 
     static {
@@ -32,14 +32,14 @@ class HeroLoader {
         }
     }
 
-    void load(Hero hero) {
+    public void load(Hero hero) {
         Optional<Document> documentOpt = heroPages.get(hero);
         if (documentOpt.isPresent()) {
             Document document = documentOpt.get();
             hero.synergies.addAll(getSynergies(document));
             hero.counters.addAll(getCounters(document));
-            hero.badMaps.addAll(getMapWeaknesses(document));
-            hero.goodMaps.addAll(getMapStrengthes(document));
+            hero.badMaps.addAll(getMapWeaknesses(hero, document));
+            hero.goodMaps.addAll(getMapStrengthes(hero, document));
         }
     }
 
@@ -73,7 +73,7 @@ class HeroLoader {
         return synergies;
     }
 
-    private Set<HeroMap> getMapStrengthes(Document document) {
+    private Set<HeroMap> getMapStrengthes(Hero hero, Document document) {
         Elements elements = document.select(".heroes_tldr_maps_stronger a img");
         Set<HeroMap> synergies = new HashSet<>();
 
@@ -81,6 +81,7 @@ class HeroLoader {
             Optional<HeroMap> heroMapOpt = HeroMap.getHeroMapByName(element.attr("title"));
             if (heroMapOpt.isPresent()) {
                 synergies.add(heroMapOpt.get());
+                heroMapOpt.get().addGoodHero(hero);
             } else {
                 System.out.println("Bad map title: "+element.attr("title"));
             }
@@ -88,7 +89,7 @@ class HeroLoader {
         return synergies;
     }
 
-    private Set<HeroMap> getMapWeaknesses(Document document) {
+    private Set<HeroMap> getMapWeaknesses(Hero hero, Document document) {
         Elements elements = document.select(".heroes_tldr_maps_weaker a img");
         Set<HeroMap> synergies = new HashSet<>();
 
@@ -96,6 +97,7 @@ class HeroLoader {
             Optional<HeroMap> heroMapOpt = HeroMap.getHeroMapByName(element.attr("title"));
             if (heroMapOpt.isPresent()) {
                 synergies.add(heroMapOpt.get());
+                heroMapOpt.get().addBadHero(hero);
             } else {
                 System.out.println("Bad map title: "+element.attr("title"));
             }
