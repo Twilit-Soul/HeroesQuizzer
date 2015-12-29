@@ -1,0 +1,25 @@
+.button {
+    -fx-min-width: 100;
+}
+
+.list-view {
+    -fx-max-height: 150;
+    -fx-background-color: transparent;
+    -fx-pref-width: 175;
+}
+
+.list-view .scroll-bar:vertical {
+    -fx-padding:-7;
+    -fx-opacity: 0;
+}
+
+.cell {
+    -fx-background-color: transparent;
+    -fx-alignment: baseline-right;
+}
+
+.text-field {
+    -fx-alignment: baseline-right;
+    -fx-pref-width: 175;
+}
+

@@ -16,6 +16,8 @@ public class Main {
             //Quick series of quizzes on the changed heroes option
         //User has options on how to be quizzed:
             //Select a list of heroes/maps to study
-            //
+            //Start quizzing from weakest knowledge points and try to bring everything up
+            //Select a previously saved list
+
     }
 }

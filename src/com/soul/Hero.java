@@ -12,8 +12,8 @@ public class Hero {
     final String name;
     final Set<Hero> counters = new HashSet<>();
     final Set<Hero> synergies = new HashSet<>();
-    final Set<HeroMap> goodMaps = new HashSet<>();
-    final Set<HeroMap> badMaps = new HashSet<>();
+    final Set<HeroMap> strongMaps = new HashSet<>();
+    final Set<HeroMap> weakMaps = new HashSet<>();
 
     public static final Hero ILLIDAN, SYLVANAS, JAINA, FALSTAD, KERRIGAN,
             RAYNOR, TYCHUS, GALL, LUNARA, THE_BUTCHER, VALLA, GREYMANE,
@@ -26,6 +26,7 @@ public class Hero {
     public static final Set<Hero> ALL_HEROES = new HashSet<>();
 
     static {
+        System.out.println("Initializing heroes...");
         ILLIDAN = new Hero("Illidan");
         ALL_HEROES.add(ILLIDAN);
         SYLVANAS = new Hero("Sylvanas");
@@ -132,17 +133,17 @@ public class Hero {
             for (Hero counter : hero.counters) {
                 System.out.println("Counter: "+counter);
             }
-            for (HeroMap heroMap : hero.badMaps) {
+            for (HeroMap heroMap : hero.weakMaps) {
                 System.out.println("Weak Map: "+heroMap);
             }
-            for (HeroMap heroMap : hero.goodMaps) {
+            for (HeroMap heroMap : hero.strongMaps) {
                 System.out.println("Strong Map: "+heroMap);
             }
             System.out.println("\n");
         }
 
         for (HeroMap heroMap : HeroMap.ALL_MAPS) {
-            System.out.println("HeroMap: "+heroMap);
+            System.out.println("\nHeroMap: "+heroMap);
             for (Hero hero : heroMap.goodHeroes) {
                 System.out.println("Good hero: "+hero);
             }
@@ -150,25 +151,29 @@ public class Hero {
                 System.out.println("Bad hero: "+hero);
             }
         }
+        System.out.println("Hero initialization complete.");
     }
 
     public static Optional<Hero> getHeroByName(String name) {
-        for (Hero hero : ALL_HEROES) {
-            if (hero.name.equals(name)) {
-                return Optional.of(hero);
+        if (name != null) {
+            for (Hero hero : ALL_HEROES) {
+                if (hero.name.equalsIgnoreCase(name)) {
+                    return Optional.of(hero);
+                }
             }
-        }
-        switch (name) {
-            case "Kael'thas":
-            case "KaelThas":
-            case "Kaelthas":
-                return Optional.of(KAELTHAS);
-            case "ETC":
-            case "E-T-C": //This is the only one that made me "wtf", guys
-                return Optional.of(ETC);
-            case "Anubarak":
-            case "Anub'arak":
-                return Optional.of(ANUBARAK);
+            switch (name) {
+                case "Kael'thas":
+                case "KaelThas":
+                case "Kaelthas":
+                    return Optional.of(KAELTHAS);
+                case "ETC":
+                case "E.T.C.":
+                case "E-T-C": //This is the only one that made me "wtf", guys
+                    return Optional.of(ETC);
+                case "Anubarak":
+                case "Anub'arak":
+                    return Optional.of(ANUBARAK);
+            }
         }
         return Optional.empty();
     }

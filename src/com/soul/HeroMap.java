@@ -54,9 +54,9 @@ public class HeroMap {
         this.name = name;
     }
 
-    static Optional<HeroMap> getHeroMapByName(String name) {
+    public static Optional<HeroMap> getHeroMapByName(String name) {
         for (HeroMap heroMap : ALL_MAPS) {
-            if (heroMap.name.equals(name)) {
+            if (heroMap.name.equalsIgnoreCase(name)) {
                 return Optional.of(heroMap);
             }
         }

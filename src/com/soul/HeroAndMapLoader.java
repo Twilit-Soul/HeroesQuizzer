@@ -38,8 +38,8 @@ class HeroAndMapLoader {
             Document document = documentOpt.get();
             hero.synergies.addAll(getSynergies(document));
             hero.counters.addAll(getCounters(document));
-            hero.badMaps.addAll(getMapWeaknesses(hero, document));
-            hero.goodMaps.addAll(getMapStrengthes(hero, document));
+            hero.weakMaps.addAll(getMapWeaknesses(hero, document));
+            hero.strongMaps.addAll(getMapStrengthes(hero, document));
         }
     }
 
